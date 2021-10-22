@@ -1,4 +1,4 @@
-# fcmb-api-client-php
+# fcmb-api-client
 
 [![Latest Stable Version](https://img.shields.io/github/v/release/brokeyourbike/fcmb-api-client-php)](https://github.com/brokeyourbike/fcmb-api-client-php/releases)
 [![Total Downloads](https://poser.pugx.org/brokeyourbike/fcmb-api-client/downloads)](https://packagist.org/packages/brokeyourbike/fcmb-api-client)
