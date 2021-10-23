@@ -3,7 +3,12 @@
     "description": "First City Monument Bank API Client for PHP",
     "type": "library",
     "license": "MPL-2.0",
-    "keywords": ["api", "api-client", "fcmb", "first-city-monument-bank"],
+    "keywords": [
+        "api",
+        "api-client",
+        "fcmb",
+        "first-city-monument-bank"
+    ],
     "autoload": {
         "psr-4": {
             "BrokeYourBike\\FirstCityMonumentBank\\": "src/"
@@ -37,5 +42,5 @@
         "mockery/mockery": "^1.4",
         "nesbot/carbon": "^2.53"
     },
-    "version": "0.1.0"
+    "version": "0.1.1"
 }

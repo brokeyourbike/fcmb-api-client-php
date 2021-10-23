@@ -1,5 +1,17 @@
 # Changelog
 
+### [0.1.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.0...v0.1.1) (2021-10-23)
+
+
+### Bug Fixes
+
+* amount should be float ([4917066](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/4917066d9bee89975842c4574cee023ea40d35ed))
+
+
+### Miscellaneous Chores
+
+* add keywords ([b260afd](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/b260afd1dddce687d3fd98376fc7ef6cbb7073cc))
+
 ## [0.1.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.0.1...v0.1.0) (2021-10-23)
 
 
