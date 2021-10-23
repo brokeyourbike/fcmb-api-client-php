@@ -21,7 +21,14 @@ interface TransactionInterface
     public function getRecipient(): RecipientInterface;
     public function getTransactionType(): TransactionTypeEnum;
     public function getReference(): string;
-    public function getCountryCode(): string;
+
+    /**
+     * ISO 3166-1 alpha-2
+     *
+     * @return string|null
+     */
+    public function getCountryCode(): ?string;
+
     public function getCurrencyCode(): string;
     public function getAmount(): string;
     public function getReason(): ?string;

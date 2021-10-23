@@ -16,7 +16,14 @@ use BrokeYourBike\FirstCityMonumentBank\Enums\IdentificationTypeEnum;
 interface RecipientInterface
 {
     public function getName(): string;
+
+    /**
+     * ISO 3166-1 alpha-2
+     *
+     * @return string|null
+     */
     public function getCountryCode(): ?string;
+
     public function getAddress(): ?string;
     public function getPhoneNumber(): ?string;
     public function getBankCode(): ?string;
