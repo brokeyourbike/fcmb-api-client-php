@@ -35,10 +35,7 @@ class PayoutTransactionTest extends TestCase
         parent::setUp();
 
         $this->sender = $this->getMockBuilder(SenderInterface::class)->getMock();
-        $this->sender->method('getIdentificationExpiry')->willReturn(Carbon::parse('23 Oct 2021 13:43:37'));
-
         $this->recipient = $this->getMockBuilder(RecipientInterface::class)->getMock();
-        $this->recipient->method('getIdentificationExpiry')->willReturn(Carbon::parse('24 Oct 2021 13:43:37'));
     }
 
     /** @test */
@@ -98,6 +95,9 @@ class PayoutTransactionTest extends TestCase
      */
     public function it_can_prepare_request(bool $isLive): void
     {
+        $this->sender->method('getIdentificationExpiry')->willReturn(Carbon::parse('23 Oct 2021 13:43:37'));
+        $this->recipient->method('getIdentificationExpiry')->willReturn(Carbon::parse('24 Oct 2021 13:43:37'));
+
         $transaction = $this->getMockBuilder(TransactionInterface::class)->getMock();
         $transaction->method('getSender')->willReturn($this->sender);
         $transaction->method('getRecipient')->willReturn($this->recipient);
@@ -239,7 +239,7 @@ class PayoutTransactionTest extends TestCase
                             'country' => $transaction->getSender()?->getCountryCode(),
                             'idtype' => (string) $transaction->getSender()?->getIdentificationType(),
                             'idnumber' => $transaction->getSender()?->getIdentificationNumber(),
-                            'idexpiry' => '2021-10-23',
+                            'idexpiry' => null,
                         ],
                         'recipient' => [
                             'name' => $transaction->getRecipient()?->getName(),
@@ -248,7 +248,7 @@ class PayoutTransactionTest extends TestCase
                             'country' => $transaction->getRecipient()?->getCountryCode(),
                             'idtype' => (string) $transaction->getRecipient()?->getIdentificationType(),
                             'idnumber' => $transaction->getRecipient()?->getIdentificationNumber(),
-                            'idexpiry' => '2021-10-24',
+                            'idexpiry' => null,
                             'accountnumber' => $transaction->getRecipient()?->getAccountNumber(),
                             'bankcode' => $transaction->getRecipient()?->getBankCode(),
                         ],
