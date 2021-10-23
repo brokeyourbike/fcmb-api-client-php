@@ -25,12 +25,12 @@ interface TransactionInterface
     /**
      * ISO 3166-1 alpha-2
      *
-     * @return string|null
+     * @return string
      */
-    public function getCountryCode(): ?string;
+    public function getCountryCode(): string;
 
     public function getCurrencyCode(): string;
-    public function getAmount(): string;
+    public function getAmount(): float;
     public function getReason(): ?string;
     public function getDescription(): ?string;
     public function getSecretQuestion(): ?string;
