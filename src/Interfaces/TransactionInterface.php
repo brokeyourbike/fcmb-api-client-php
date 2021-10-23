@@ -17,8 +17,8 @@ use BrokeYourBike\FirstCityMonumentBank\Enums\TransactionTypeEnum;
  */
 interface TransactionInterface
 {
-    public function getSender(): SenderInterface;
-    public function getRecipient(): RecipientInterface;
+    public function getSender(): ?SenderInterface;
+    public function getRecipient(): ?RecipientInterface;
     public function getTransactionType(): TransactionTypeEnum;
     public function getReference(): string;
 

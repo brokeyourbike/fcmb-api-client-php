@@ -10,8 +10,12 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use Carbon\Carbon;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
+use BrokeYourBike\FirstCityMonumentBank\Interfaces\SenderInterface;
+use BrokeYourBike\FirstCityMonumentBank\Interfaces\RecipientInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
+use BrokeYourBike\FirstCityMonumentBank\Exceptions\PrepareRequestException;
 use BrokeYourBike\FirstCityMonumentBank\Enums\TransactionTypeEnum;
 use BrokeYourBike\FirstCityMonumentBank\Client;
 
@@ -23,6 +27,70 @@ class PayoutTransactionTest extends TestCase
     private string $clientId = 'client-id';
     private string $authToken = 'super-secure-token';
     private string $reference = '123445';
+    private object $sender;
+    private object $recipient;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->sender = $this->getMockBuilder(SenderInterface::class)->getMock();
+        $this->sender->method('getIdentificationExpiry')->willReturn(Carbon::parse('23 Oct 2021 13:43:37'));
+
+        $this->recipient = $this->getMockBuilder(RecipientInterface::class)->getMock();
+        $this->recipient->method('getIdentificationExpiry')->willReturn(Carbon::parse('24 Oct 2021 13:43:37'));
+    }
+
+    /** @test */
+    public function it_will_throw_if_no_sender_in_transaction()
+    {
+        /** @var TransactionInterface $transaction */
+        $transaction = $this->getMockBuilder(TransactionInterface::class)->getMock();
+
+        $this->assertNull($transaction->getSender());
+
+        $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
+        $mockedClient = $this->getMockBuilder(\GuzzleHttp\ClientInterface::class)->getMock();
+        $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
+
+        $this->expectExceptionMessage(SenderInterface::class . ' is required');
+        $this->expectException(PrepareRequestException::class);
+
+        /**
+         * @var ConfigInterface $mockedConfig
+         * @var \GuzzleHttp\Client $mockedClient
+         * @var CacheInterface $mockedCache
+         * */
+        $api = new Client($mockedConfig, $mockedClient, $mockedCache);
+
+        $api->payoutTransaction($transaction);
+    }
+
+    /** @test */
+    public function it_will_throw_if_no_recipient_in_transaction()
+    {
+        $transaction = $this->getMockBuilder(TransactionInterface::class)->getMock();
+        $transaction->method('getSender')->willReturn($this->sender);
+
+        /** @var TransactionInterface $transaction */
+        $this->assertNull($transaction->getRecipient());
+
+        $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
+        $mockedClient = $this->getMockBuilder(\GuzzleHttp\ClientInterface::class)->getMock();
+        $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
+
+        $this->expectExceptionMessage(RecipientInterface::class . ' is required');
+        $this->expectException(PrepareRequestException::class);
+
+        /**
+         * @var ConfigInterface $mockedConfig
+         * @var \GuzzleHttp\Client $mockedClient
+         * @var CacheInterface $mockedCache
+         * */
+        $api = new Client($mockedConfig, $mockedClient, $mockedCache);
+
+        $api->payoutTransaction($transaction);
+    }
 
     /**
      * @test
@@ -31,6 +99,8 @@ class PayoutTransactionTest extends TestCase
     public function it_can_prepare_request(bool $isLive): void
     {
         $transaction = $this->getMockBuilder(TransactionInterface::class)->getMock();
+        $transaction->method('getSender')->willReturn($this->sender);
+        $transaction->method('getRecipient')->willReturn($this->recipient);
         $transaction->method('getReference')->willReturn($this->reference);
         $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK());
         $transaction->method('getSecretQuestion')->willReturn('what is love?');
@@ -75,24 +145,24 @@ class PayoutTransactionTest extends TestCase
                     'source' => [
                         'operation' => (string) TransactionTypeEnum::BANK(),
                         'sender' => [
-                            'name' => $transaction->getSender()->getName(),
-                            'address' => $transaction->getSender()->getAddress(),
-                            'mobile' => $transaction->getSender()->getPhoneNumber(),
-                            'country' => $transaction->getSender()->getCountryCode(),
-                            'idtype' => (string) $transaction->getSender()->getIdentificationType(),
-                            'idnumber' => $transaction->getSender()->getIdentificationNumber(),
-                            'idexpiry' => $transaction->getSender()->getIdentificationExpiry(),
+                            'name' => $transaction->getSender()?->getName(),
+                            'address' => $transaction->getSender()?->getAddress(),
+                            'mobile' => $transaction->getSender()?->getPhoneNumber(),
+                            'country' => $transaction->getSender()?->getCountryCode(),
+                            'idtype' => (string) $transaction->getSender()?->getIdentificationType(),
+                            'idnumber' => $transaction->getSender()?->getIdentificationNumber(),
+                            'idexpiry' => '2021-10-23',
                         ],
                         'recipient' => [
-                            'name' => $transaction->getRecipient()->getName(),
-                            'address' => $transaction->getRecipient()->getAddress(),
-                            'mobile' => $transaction->getRecipient()->getPhoneNumber(),
-                            'country' => $transaction->getRecipient()->getCountryCode(),
-                            'idtype' => (string) $transaction->getRecipient()->getIdentificationType(),
-                            'idnumber' => $transaction->getRecipient()->getIdentificationNumber(),
-                            'idexpiry' => $transaction->getRecipient()->getIdentificationExpiry(),
-                            'accountnumber' => $transaction->getRecipient()->getAccountNumber(),
-                            'bankcode' => $transaction->getRecipient()->getBankCode(),
+                            'name' => $transaction->getRecipient()?->getName(),
+                            'address' => $transaction->getRecipient()?->getAddress(),
+                            'mobile' => $transaction->getRecipient()?->getPhoneNumber(),
+                            'country' => $transaction->getRecipient()?->getCountryCode(),
+                            'idtype' => (string) $transaction->getRecipient()?->getIdentificationType(),
+                            'idnumber' => $transaction->getRecipient()?->getIdentificationNumber(),
+                            'idexpiry' => '2021-10-24',
+                            'accountnumber' => $transaction->getRecipient()?->getAccountNumber(),
+                            'bankcode' => $transaction->getRecipient()?->getBankCode(),
                         ],
                     ],
                     'order' => [
@@ -131,10 +201,10 @@ class PayoutTransactionTest extends TestCase
     public function it_will_pass_source_model_as_option(bool $isLive): void
     {
         $transaction = $this->getMockBuilder(SourceTransactionFixture::class)->getMock();
+        $transaction->method('getSender')->willReturn($this->sender);
+        $transaction->method('getRecipient')->willReturn($this->recipient);
         $transaction->method('getReference')->willReturn($this->reference);
         $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK());
-        $transaction->method('getSecretQuestion')->willReturn('what is love?');
-        $transaction->method('getSecretAnswer')->willReturn('love is code');
 
         /** @var SourceTransactionFixture $transaction */
         $this->assertInstanceOf(SourceTransactionFixture::class, $transaction);
@@ -163,24 +233,24 @@ class PayoutTransactionTest extends TestCase
                     'source' => [
                         'operation' => (string) TransactionTypeEnum::BANK(),
                         'sender' => [
-                            'name' => $transaction->getSender()->getName(),
-                            'address' => $transaction->getSender()->getAddress(),
-                            'mobile' => $transaction->getSender()->getPhoneNumber(),
-                            'country' => $transaction->getSender()->getCountryCode(),
-                            'idtype' => (string) $transaction->getSender()->getIdentificationType(),
-                            'idnumber' => $transaction->getSender()->getIdentificationNumber(),
-                            'idexpiry' => $transaction->getSender()->getIdentificationExpiry(),
+                            'name' => $transaction->getSender()?->getName(),
+                            'address' => $transaction->getSender()?->getAddress(),
+                            'mobile' => $transaction->getSender()?->getPhoneNumber(),
+                            'country' => $transaction->getSender()?->getCountryCode(),
+                            'idtype' => (string) $transaction->getSender()?->getIdentificationType(),
+                            'idnumber' => $transaction->getSender()?->getIdentificationNumber(),
+                            'idexpiry' => '2021-10-23',
                         ],
                         'recipient' => [
-                            'name' => $transaction->getRecipient()->getName(),
-                            'address' => $transaction->getRecipient()->getAddress(),
-                            'mobile' => $transaction->getRecipient()->getPhoneNumber(),
-                            'country' => $transaction->getRecipient()->getCountryCode(),
-                            'idtype' => (string) $transaction->getRecipient()->getIdentificationType(),
-                            'idnumber' => $transaction->getRecipient()->getIdentificationNumber(),
-                            'idexpiry' => $transaction->getRecipient()->getIdentificationExpiry(),
-                            'accountnumber' => $transaction->getRecipient()->getAccountNumber(),
-                            'bankcode' => $transaction->getRecipient()->getBankCode(),
+                            'name' => $transaction->getRecipient()?->getName(),
+                            'address' => $transaction->getRecipient()?->getAddress(),
+                            'mobile' => $transaction->getRecipient()?->getPhoneNumber(),
+                            'country' => $transaction->getRecipient()?->getCountryCode(),
+                            'idtype' => (string) $transaction->getRecipient()?->getIdentificationType(),
+                            'idnumber' => $transaction->getRecipient()?->getIdentificationNumber(),
+                            'idexpiry' => '2021-10-24',
+                            'accountnumber' => $transaction->getRecipient()?->getAccountNumber(),
+                            'bankcode' => $transaction->getRecipient()?->getBankCode(),
                         ],
                     ],
                     'order' => [
@@ -189,8 +259,6 @@ class PayoutTransactionTest extends TestCase
                         'currency' => $transaction->getCurrencyCode(),
                         'reason' => (string) $transaction->getReason(),
                         'description' => (string) $transaction->getDescription(),
-                        'secretquestion' => 'what is love?',
-                        'secretanswer' => 'love is code',
                     ],
                 ],
                 \BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL => $transaction,
