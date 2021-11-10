@@ -46,7 +46,7 @@ class Client implements HttpClientInterface
     public function authTokenCacheKey(): string
     {
         $liveKey = $this->config->isLive() ? 'live' : 'sandbox';
-        return __CLASS__ . ':authToken:' . $liveKey;
+        return get_class($this) . ':authToken:' . $liveKey;
     }
 
     public function getAuthToken(): ?string
