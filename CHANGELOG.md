@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.1.2](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.1...v0.1.2) (2021-11-10)
+
+
+### Bug Fixes
+
+* use name of the current class in the cache key ([9f6af96](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/9f6af964b099d278e2388d893a489357e866b4b4))
+
 ### [0.1.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.0...v0.1.1) (2021-10-23)
 
 
