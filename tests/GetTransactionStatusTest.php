@@ -22,8 +22,11 @@ class GetTransactionStatusTest extends TestCase
     private string $authToken = 'super-secure-token';
     private string $reference = '123445';
 
-    /** @test */
-    public function it_can_prepare_request(): void
+    /**
+     * @test
+     * @dataProvider isLiveProvider
+     */
+    public function it_can_prepare_request(bool $isLive): void
     {
         $transaction = $this->getMockBuilder(TransactionInterface::class)->getMock();
         $transaction->method('getReference')->willReturn($this->reference);
@@ -32,6 +35,7 @@ class GetTransactionStatusTest extends TestCase
         $this->assertInstanceOf(TransactionInterface::class, $transaction);
 
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
+        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
 
         $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
@@ -75,8 +79,11 @@ class GetTransactionStatusTest extends TestCase
         $this->assertInstanceOf(ResponseInterface::class, $requestResult);
     }
 
-    /** @test */
-    public function it_will_pass_source_model_as_option(): void
+    /**
+     * @test
+     * @dataProvider isLiveProvider
+     */
+    public function it_will_pass_source_model_as_option(bool $isLive): void
     {
         $transaction = $this->getMockBuilder(SourceTransactionFixture::class)->getMock();
         $transaction->method('getReference')->willReturn($this->reference);
@@ -85,6 +92,7 @@ class GetTransactionStatusTest extends TestCase
         $this->assertInstanceOf(SourceTransactionFixture::class, $transaction);
 
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
+        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
 
         /** @var \Mockery\MockInterface $mockedClient */

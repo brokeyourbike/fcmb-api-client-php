@@ -22,10 +22,14 @@ class CancelTransactionRawTest extends TestCase
     private string $authToken = 'super-secure-token';
     private string $reference = '12345';
 
-    /** @test */
-    public function it_can_prepare_request(): void
+    /**
+     * @test
+     * @dataProvider isLiveProvider
+     */
+    public function it_can_prepare_request(bool $isLive): void
     {
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
+        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
 
