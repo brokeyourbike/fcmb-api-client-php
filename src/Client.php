@@ -45,20 +45,24 @@ class Client implements HttpClientInterface
 
     public function authTokenCacheKey(): string
     {
-        $liveKey = $this->config->isLive() ? 'live' : 'sandbox';
-        return get_class($this) . ':authToken:' . $liveKey;
+        return get_class($this) . ':authToken:';
     }
 
     public function getAuthToken(): ?string
     {
         if ($this->cache->has($this->authTokenCacheKey())) {
-            return (string) $this->cache->get($this->authTokenCacheKey());
+            $cachedToken = $this->cache->get($this->authTokenCacheKey());
+
+            if (is_string($cachedToken)) {
+                return $cachedToken;
+            }
         }
 
         $response = $this->fetchAuthTokenRaw();
         $responseJson = \json_decode((string) $response->getBody(), true);
 
         if (
+            is_array($responseJson) &&
             isset($responseJson['access_token']) &&
             is_string($responseJson['access_token']) &&
             isset($responseJson['expires_in']) &&
