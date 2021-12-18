@@ -1,0 +1,127 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:AMOUNT_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:CANCELED is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:COUNTRY_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:CREDENTIALS_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:CURRENCY_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:DESTINATION_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:DOUBLE_SUCCESS is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:GENERIC_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:INITIATED is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:INVALID_PARAMS_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:IN_PROGRESS is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:LOCKED is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:NAME_ENQUIRY_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:NOT_FOUND is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:NOT_PERMITTED_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:PAYOUT_TYPE_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:PENDING is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:PUBLIC_KEY_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:REFERENCE_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:SUCCESS is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:TOKEN_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\ErrorCodeEnum\\:\\:TRANSACTION_ERROR is unused\\.$#"
+			count: 1
+			path: src/Enums/ErrorCodeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\IdentificationTypeEnum\\:\\:PASSPORT is unused\\.$#"
+			count: 1
+			path: src/Enums/IdentificationTypeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\TransactionTypeEnum\\:\\:BANK is unused\\.$#"
+			count: 1
+			path: src/Enums/TransactionTypeEnum.php
+
+		-
+			message: "#^Constant BrokeYourBike\\\\FirstCityMonumentBank\\\\Enums\\\\TransactionTypeEnum\\:\\:CASH is unused\\.$#"
+			count: 1
+			path: src/Enums/TransactionTypeEnum.php
+

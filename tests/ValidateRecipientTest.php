@@ -23,11 +23,8 @@ class ValidateRecipientTest extends TestCase
     private string $clientId = 'client-id';
     private string $authToken = 'super-secure-token';
 
-    /**
-     * @test
-     * @dataProvider isLiveProvider
-     */
-    public function it_can_prepare_request(bool $isLive): void
+    /** @test */
+    public function it_can_prepare_request(): void
     {
         $recipient = $this->getMockBuilder(RecipientInterface::class)->getMock();
 
@@ -35,7 +32,6 @@ class ValidateRecipientTest extends TestCase
         $this->assertInstanceOf(RecipientInterface::class, $recipient);
 
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
-        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
 
@@ -94,11 +90,8 @@ class ValidateRecipientTest extends TestCase
         $this->assertInstanceOf(ResponseInterface::class, $requestResult);
     }
 
-    /**
-     * @test
-     * @dataProvider isLiveProvider
-     */
-    public function it_will_pass_source_model_as_option(bool $isLive): void
+    /** @test */
+    public function it_will_pass_source_model_as_option(): void
     {
         $recipient = $this->getMockBuilder(SourceRecipientFixture::class)->getMock();
 
@@ -106,7 +99,6 @@ class ValidateRecipientTest extends TestCase
         $this->assertInstanceOf(SourceRecipientFixture::class, $recipient);
 
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
-        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
 

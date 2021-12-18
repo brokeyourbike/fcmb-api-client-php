@@ -21,14 +21,10 @@ class FetchAuthTokenRawTest extends TestCase
     private string $clientId = 'client-id';
     private string $clientSecret = 'secure-token';
 
-    /**
-     * @test
-     * @dataProvider isLiveProvider
-     */
-    public function it_can_prepare_request(bool $isLive): void
+    /** @test */
+    public function it_can_prepare_request(): void
     {
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
-        $mockedConfig->method('isLive')->willReturn($isLive);
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
         $mockedConfig->method('getClientSecret')->willReturn($this->clientSecret);

@@ -13,7 +13,6 @@ namespace BrokeYourBike\FirstCityMonumentBank\Interfaces;
  */
 interface ConfigInterface
 {
-    public function isLive(): bool;
     public function getUrl(): string;
     public function getClientId(): string;
     public function getClientSecret(): string;
