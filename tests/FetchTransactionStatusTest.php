@@ -10,6 +10,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use BrokeYourBike\FirstCityMonumentBank\Models\FetchTransactionStatusResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 use BrokeYourBike\FirstCityMonumentBank\Client;
@@ -17,7 +18,7 @@ use BrokeYourBike\FirstCityMonumentBank\Client;
 /**
  * @author Ivan Stasiuk <brokeyourbike@gmail.com>
  */
-class GetTransactionStatusTest extends TestCase
+class FetchTransactionStatusTest extends TestCase
 {
     private string $authToken = 'super-secure-token';
     private string $reference = '123445';
@@ -39,7 +40,10 @@ class GetTransactionStatusTest extends TestCase
         $mockedResponse->method('getBody')
             ->willReturn('{
                 "code": "INI",
-                "message": "Transaction initiated"
+                "message": "Transaction initiated",
+                "transaction": {
+                    "reference": "12345"
+                }
             }');
 
         /** @var \Mockery\MockInterface $mockedClient */
@@ -70,9 +74,9 @@ class GetTransactionStatusTest extends TestCase
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
-        $requestResult = $api->getTransactionStatus($transaction);
+        $requestResult = $api->fetchTransactionStatus($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(FetchTransactionStatusResponse::class, $requestResult);
     }
 
     /** @test */
@@ -86,6 +90,17 @@ class GetTransactionStatusTest extends TestCase
 
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
+
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $mockedResponse->method('getStatusCode')->willReturn(200);
+        $mockedResponse->method('getBody')
+            ->willReturn('{
+                "code": "INI",
+                "message": "Transaction initiated",
+                "transaction": {
+                    "reference": "12345"
+                }
+            }');
 
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
@@ -103,7 +118,7 @@ class GetTransactionStatusTest extends TestCase
                 ],
                 \BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL => $transaction,
             ],
-        ])->once();
+        ])->once()->andReturn($mockedResponse);
 
         $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
         $mockedCache->method('has')->willReturn(true);
@@ -116,8 +131,8 @@ class GetTransactionStatusTest extends TestCase
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
-        $requestResult = $api->getTransactionStatus($transaction);
+        $requestResult = $api->fetchTransactionStatus($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(FetchTransactionStatusResponse::class, $requestResult);
     }
 }

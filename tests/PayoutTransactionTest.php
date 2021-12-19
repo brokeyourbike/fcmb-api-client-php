@@ -11,6 +11,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
 use Carbon\Carbon;
+use BrokeYourBike\FirstCityMonumentBank\Models\PayoutTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\SenderInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\RecipientInterface;
@@ -186,8 +187,7 @@ class PayoutTransactionTest extends TestCase
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
         $requestResult = $api->payoutTransaction($transaction);
-
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(PayoutTransactionResponse::class, $requestResult);
     }
 
     /** @test */
@@ -205,6 +205,18 @@ class PayoutTransactionTest extends TestCase
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
+
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $mockedResponse->method('getStatusCode')->willReturn(200);
+        $mockedResponse->method('getBody')
+            ->willReturn('{
+                "code": "00",
+                "message": "Successful",
+                "transaction": {
+                    "reference": "' . $this->reference . '",
+                    "linkingreference": "F123456789"
+                }
+            }');
 
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
@@ -255,7 +267,7 @@ class PayoutTransactionTest extends TestCase
                 ],
                 \BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL => $transaction,
             ],
-        ])->once();
+        ])->once()->andReturn($mockedResponse);
 
         $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
         $mockedCache->method('has')->willReturn(true);
@@ -270,6 +282,6 @@ class PayoutTransactionTest extends TestCase
 
         $requestResult = $api->payoutTransaction($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(PayoutTransactionResponse::class, $requestResult);
     }
 }
