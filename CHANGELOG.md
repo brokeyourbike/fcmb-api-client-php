@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v1.0.0...v1.1.0) (2021-12-19)
+
+
+### Features
+
+* use dto ([084c8e4](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/084c8e456e276c2c8ed07d5f5e39f3e4e6083f64))
+
 ## [1.0.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.2...v1.0.0) (2021-12-18)
 
 
