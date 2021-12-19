@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.2...v0.2.0) (2021-12-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove `isLive`
+
+### Features
+
+* use dto ([fac5703](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/fac570372e22568f2cec3d1ad93b767dbbb808d1))
+
+
+### Bug Fixes
+
+* remove `isLive` ([1b88230](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/1b8823022df9795d129451a065d2af69574b7c76))
+
 ### [0.1.2](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.1...v0.1.2) (2021-11-10)
 
 
