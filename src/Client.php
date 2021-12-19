@@ -17,6 +17,10 @@ use BrokeYourBike\HttpClient\HttpClientTrait;
 use BrokeYourBike\HttpClient\HttpClientInterface;
 use BrokeYourBike\HasSourceModel\SourceModelInterface;
 use BrokeYourBike\HasSourceModel\HasSourceModelTrait;
+use BrokeYourBike\FirstCityMonumentBank\Models\ValidateRecipientResponse;
+use BrokeYourBike\FirstCityMonumentBank\Models\PayoutTransactionResponse;
+use BrokeYourBike\FirstCityMonumentBank\Models\FetchTransactionStatusResponse;
+use BrokeYourBike\FirstCityMonumentBank\Models\FetchAuthTokenResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\SenderInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\RecipientInterface;
@@ -48,7 +52,7 @@ class Client implements HttpClientInterface
         return get_class($this) . ':authToken:';
     }
 
-    public function getAuthToken(): ?string
+    public function getAuthToken(): string
     {
         if ($this->cache->has($this->authTokenCacheKey())) {
             $cachedToken = $this->cache->get($this->authTokenCacheKey());
@@ -59,28 +63,17 @@ class Client implements HttpClientInterface
         }
 
         $response = $this->fetchAuthTokenRaw();
-        $responseJson = \json_decode((string) $response->getBody(), true);
 
-        if (
-            is_array($responseJson) &&
-            isset($responseJson['access_token']) &&
-            is_string($responseJson['access_token']) &&
-            isset($responseJson['expires_in']) &&
-            is_numeric($responseJson['expires_in'])
-        ) {
-            $this->cache->set(
-                $this->authTokenCacheKey(),
-                $responseJson['access_token'],
-                (int) $responseJson['expires_in'] - $this->ttlMarginInSeconds
-            );
+        $this->cache->set(
+            $this->authTokenCacheKey(),
+            $response->accessToken,
+            $response->expiresIn - $this->ttlMarginInSeconds
+        );
 
-            return $responseJson['access_token'];
-        }
-
-        return null;
+        return $response->accessToken;
     }
 
-    public function fetchAuthTokenRaw(): ResponseInterface
+    public function fetchAuthTokenRaw(): FetchAuthTokenResponse
     {
         $options = [
             \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
@@ -96,20 +89,22 @@ class Client implements HttpClientInterface
 
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), 'auth');
 
-        return $this->httpClient->request(
+        $response = $this->httpClient->request(
             (string) HttpMethodEnum::POST(),
             $uri,
             $options
         );
+
+        return new FetchAuthTokenResponse($response);
     }
 
-    public function validateRecipient(RecipientInterface $recipient): ResponseInterface
+    public function validateRecipient(RecipientInterface $recipient): ValidateRecipientResponse
     {
         if ($recipient instanceof SourceModelInterface) {
             $this->setSourceModel($recipient);
         }
 
-        return $this->performRequest(HttpMethodEnum::POST(), 'customer/validate', [
+        $response = $this->performRequest(HttpMethodEnum::POST(), 'customer/validate', [
             'publickey' => $this->config->getClientId(),
             'source' => [
                 'operation' => 'account_enquiry',
@@ -125,22 +120,26 @@ class Client implements HttpClientInterface
                 'country' => $recipient->getCountryCode(),
             ],
         ]);
+
+        return new ValidateRecipientResponse($response);
     }
 
-    public function getTransactionStatus(TransactionInterface $transaction): ResponseInterface
+    public function fetchTransactionStatus(TransactionInterface $transaction): FetchTransactionStatusResponse
     {
         if ($transaction instanceof SourceModelInterface) {
             $this->setSourceModel($transaction);
         }
 
-        return $this->getTransactionStatusRaw($transaction->getReference());
+        return $this->fetchTransactionStatusRaw($transaction->getReference());
     }
 
-    public function getTransactionStatusRaw(string $reference): ResponseInterface
+    public function fetchTransactionStatusRaw(string $reference): FetchTransactionStatusResponse
     {
-        return $this->performRequest(HttpMethodEnum::GET(), 'payout/status', [
+        $response = $this->performRequest(HttpMethodEnum::GET(), 'payout/status', [
             'reference' => $reference,
         ]);
+
+        return new FetchTransactionStatusResponse($response);
     }
 
     public function cancelTransaction(TransactionInterface $transaction): ResponseInterface
@@ -162,7 +161,7 @@ class Client implements HttpClientInterface
         ]);
     }
 
-    public function payoutTransaction(TransactionInterface $transaction): ResponseInterface
+    public function payoutTransaction(TransactionInterface $transaction): PayoutTransactionResponse
     {
         $sender = $transaction->getSender();
         $recipient = $transaction->getRecipient();
@@ -229,7 +228,8 @@ class Client implements HttpClientInterface
             $data['order']['secretanswer'] = $transaction->getSecretAnswer();
         }
 
-        return $this->performRequest(HttpMethodEnum::POST(), 'account/payout', $data);
+        $response = $this->performRequest(HttpMethodEnum::POST(), 'account/payout', $data);
+        return new PayoutTransactionResponse($response);
     }
 
     /**
@@ -260,5 +260,10 @@ class Client implements HttpClientInterface
 
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), $uri);
         return $this->httpClient->request((string) $method, $uri, $options);
+    }
+
+    private function decodeResponse(ResponseInterface $response): mixed
+    {
+        return \json_decode((string) $response->getBody(), true);
     }
 }

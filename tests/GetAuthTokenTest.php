@@ -8,6 +8,7 @@
 
 namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
+use TypeError;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
@@ -90,7 +91,7 @@ class GetAuthTokenTest extends TestCase
     }
 
     /** @test */
-    public function it_will_return_null_if_response_invalid()
+    public function it_will_throw_if_response_invalid()
     {
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
 
@@ -111,11 +112,18 @@ class GetAuthTokenTest extends TestCase
          * @var CacheInterface $mockedCache
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
-        $requestResult = $api->getAuthToken();
 
-        $this->assertNull($requestResult);
+        try {
+            $api->getAuthToken();
+        } catch (\Throwable $th) {
+            $this->assertInstanceOf(TypeError::class, $th);
 
-        /** @var \Mockery\MockInterface $mockedCache */
-        $mockedCache->shouldNotReceive('set');
+            /** @var \Mockery\MockInterface $mockedCache */
+            $mockedCache->shouldNotReceive('set');
+
+            return;
+        }
+
+        $this->fail('Exception was not thrown');
     }
 }

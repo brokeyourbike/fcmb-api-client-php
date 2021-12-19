@@ -10,6 +10,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use BrokeYourBike\FirstCityMonumentBank\Models\FetchAuthTokenResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 use BrokeYourBike\FirstCityMonumentBank\Client;
 
@@ -65,6 +66,6 @@ class FetchAuthTokenRawTest extends TestCase
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
         $requestResult = $api->fetchAuthTokenRaw();
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(FetchAuthTokenResponse::class, $requestResult);
     }
 }

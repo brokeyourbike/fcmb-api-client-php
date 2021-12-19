@@ -17,7 +17,7 @@ use BrokeYourBike\FirstCityMonumentBank\Client;
 /**
  * @author Ivan Stasiuk <brokeyourbike@gmail.com>
  */
-class GetTransactionStatusTest extends TestCase
+class FetchTransactionStatusTest extends TestCase
 {
     private string $authToken = 'super-secure-token';
     private string $reference = '123445';
@@ -70,7 +70,7 @@ class GetTransactionStatusTest extends TestCase
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
-        $requestResult = $api->getTransactionStatus($transaction);
+        $requestResult = $api->fetchTransactionStatus($transaction);
 
         $this->assertInstanceOf(ResponseInterface::class, $requestResult);
     }
@@ -116,7 +116,7 @@ class GetTransactionStatusTest extends TestCase
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
-        $requestResult = $api->getTransactionStatus($transaction);
+        $requestResult = $api->fetchTransactionStatus($transaction);
 
         $this->assertInstanceOf(ResponseInterface::class, $requestResult);
     }

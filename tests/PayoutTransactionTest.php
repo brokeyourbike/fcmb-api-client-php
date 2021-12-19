@@ -11,6 +11,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
 use Carbon\Carbon;
+use BrokeYourBike\FirstCityMonumentBank\Models\PayoutTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\SenderInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\RecipientInterface;
@@ -113,14 +114,23 @@ class PayoutTransactionTest extends TestCase
         $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $mockedResponse->method('getStatusCode')->willReturn(200);
         $mockedResponse->method('getBody')
+            // ->willReturn('{
+            //     "code": "00",
+            //     "message": "Successful",
+            //     "transaction": {
+            //         "reference": "' . $this->reference . '",
+            //         "linkingreference": "F123456789"
+            //     }
+            // }');
             ->willReturn('{
-                "code": "00",
-                "message": "Successful",
+                "code": "S5",
+                "message": "Invalid/Missing parameters: transaction/reference",
                 "transaction": {
-                    "reference": "' . $this->reference . '",
-                    "linkingreference": "F123456789"
+                    "reference": ""
                 }
             }');
+
+
 
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
@@ -186,8 +196,7 @@ class PayoutTransactionTest extends TestCase
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
         $requestResult = $api->payoutTransaction($transaction);
-
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(PayoutTransactionResponse::class, $requestResult);
     }
 
     /** @test */
