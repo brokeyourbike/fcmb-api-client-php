@@ -43,5 +43,5 @@
         "mockery/mockery": "^1.4",
         "nesbot/carbon": "^2.53"
     },
-    "version": "0.1.2"
+    "version": "2.0.1"
 }

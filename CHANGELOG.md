@@ -1,5 +1,18 @@
 # Changelog
 
+### [2.0.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v2.0.0...v2.0.1) (2021-12-19)
+
+
+### Bug Fixes
+
+* bumb version to dev ([50e1860](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/50e186099dfe0af12c87fe496217a8a78a9092aa))
+* remove unwanted tags ([c62b1fd](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/c62b1fd8197ff251d6db0c8acd61a56bf8808caa))
+
+
+### Miscellaneous Chores
+
+* update changelog ([5599ccc](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/5599ccc14d1719c3d5e1b5befc8383c2af2c0e36))
+
 ### [0.1.2](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.1...v0.1.2) (2021-11-10)
 
 
