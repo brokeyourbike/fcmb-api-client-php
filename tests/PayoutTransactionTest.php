@@ -114,23 +114,14 @@ class PayoutTransactionTest extends TestCase
         $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $mockedResponse->method('getStatusCode')->willReturn(200);
         $mockedResponse->method('getBody')
-            // ->willReturn('{
-            //     "code": "00",
-            //     "message": "Successful",
-            //     "transaction": {
-            //         "reference": "' . $this->reference . '",
-            //         "linkingreference": "F123456789"
-            //     }
-            // }');
             ->willReturn('{
-                "code": "S5",
-                "message": "Invalid/Missing parameters: transaction/reference",
+                "code": "00",
+                "message": "Successful",
                 "transaction": {
-                    "reference": ""
+                    "reference": "' . $this->reference . '",
+                    "linkingreference": "F123456789"
                 }
             }');
-
-
 
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
@@ -215,6 +206,18 @@ class PayoutTransactionTest extends TestCase
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
 
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $mockedResponse->method('getStatusCode')->willReturn(200);
+        $mockedResponse->method('getBody')
+            ->willReturn('{
+                "code": "00",
+                "message": "Successful",
+                "transaction": {
+                    "reference": "' . $this->reference . '",
+                    "linkingreference": "F123456789"
+                }
+            }');
+
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
         $mockedClient->shouldReceive('request')->withArgs([
@@ -264,7 +267,7 @@ class PayoutTransactionTest extends TestCase
                 ],
                 \BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL => $transaction,
             ],
-        ])->once();
+        ])->once()->andReturn($mockedResponse);
 
         $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
         $mockedCache->method('has')->willReturn(true);
@@ -279,6 +282,6 @@ class PayoutTransactionTest extends TestCase
 
         $requestResult = $api->payoutTransaction($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(PayoutTransactionResponse::class, $requestResult);
     }
 }

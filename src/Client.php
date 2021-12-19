@@ -21,6 +21,7 @@ use BrokeYourBike\FirstCityMonumentBank\Models\ValidateRecipientResponse;
 use BrokeYourBike\FirstCityMonumentBank\Models\PayoutTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Models\FetchTransactionStatusResponse;
 use BrokeYourBike\FirstCityMonumentBank\Models\FetchAuthTokenResponse;
+use BrokeYourBike\FirstCityMonumentBank\Models\CancelTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\SenderInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\RecipientInterface;
@@ -142,7 +143,7 @@ class Client implements HttpClientInterface
         return new FetchTransactionStatusResponse($response);
     }
 
-    public function cancelTransaction(TransactionInterface $transaction): ResponseInterface
+    public function cancelTransaction(TransactionInterface $transaction): CancelTransactionResponse
     {
         if ($transaction instanceof SourceModelInterface) {
             $this->setSourceModel($transaction);
@@ -151,14 +152,16 @@ class Client implements HttpClientInterface
         return $this->cancelTransactionRaw($transaction->getReference());
     }
 
-    public function cancelTransactionRaw(string $reference): ResponseInterface
+    public function cancelTransactionRaw(string $reference): CancelTransactionResponse
     {
-        return $this->performRequest(HttpMethodEnum::POST(), 'payout/cancel', [
+        $response = $this->performRequest(HttpMethodEnum::POST(), 'payout/cancel', [
             'publickey' => $this->config->getClientId(),
             'transaction' => [
                 'reference' => $reference,
             ],
         ]);
+
+        return new CancelTransactionResponse($response);
     }
 
     public function payoutTransaction(TransactionInterface $transaction): PayoutTransactionResponse
@@ -260,10 +263,5 @@ class Client implements HttpClientInterface
 
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), $uri);
         return $this->httpClient->request((string) $method, $uri, $options);
-    }
-
-    private function decodeResponse(ResponseInterface $response): mixed
-    {
-        return \json_decode((string) $response->getBody(), true);
     }
 }

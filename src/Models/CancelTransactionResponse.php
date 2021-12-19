@@ -18,4 +18,5 @@ class CancelTransactionResponse extends JsonResponse
 {
     public string $code;
     public string $message;
+    public Transaction $transaction;
 }

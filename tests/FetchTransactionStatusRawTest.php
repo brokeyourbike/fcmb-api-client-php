@@ -37,7 +37,7 @@ class FetchTransactionStatusRawTest extends TestCase
                 "transaction": {
                     "reference": "38841c9f-d422-4ddd-a522-c5b1867d6da6",
                     "linkingreference": "F00229978599"
-                },
+                }
             }');
 
         /** @var \Mockery\MockInterface $mockedClient */
