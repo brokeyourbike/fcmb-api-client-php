@@ -10,6 +10,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use BrokeYourBike\FirstCityMonumentBank\Models\CancelTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\TransactionInterface;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 use BrokeYourBike\FirstCityMonumentBank\Client;
@@ -80,7 +81,7 @@ class CancelTransactionTest extends TestCase
 
         $requestResult = $api->cancelTransaction($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(CancelTransactionResponse::class, $requestResult);
     }
 
     /** @test */
@@ -95,6 +96,17 @@ class CancelTransactionTest extends TestCase
         $mockedConfig = $this->getMockBuilder(ConfigInterface::class)->getMock();
         $mockedConfig->method('getUrl')->willReturn('https://api.example/');
         $mockedConfig->method('getClientId')->willReturn($this->clientId);
+
+        $mockedResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $mockedResponse->method('getStatusCode')->willReturn(200);
+        $mockedResponse->method('getBody')
+            ->willReturn('{
+                "code": "00",
+                "message": "Cancelled",
+                "transaction": {
+                    "reference": "' . $this->reference . '"
+                }
+            }');
 
         /** @var \Mockery\MockInterface $mockedClient */
         $mockedClient = \Mockery::mock(\GuzzleHttp\Client::class);
@@ -115,7 +127,7 @@ class CancelTransactionTest extends TestCase
                 ],
                 \BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL => $transaction,
             ],
-        ])->once();
+        ])->once()->andReturn($mockedResponse);
 
         $mockedCache = $this->getMockBuilder(CacheInterface::class)->getMock();
         $mockedCache->method('has')->willReturn(true);
@@ -130,6 +142,6 @@ class CancelTransactionTest extends TestCase
 
         $requestResult = $api->cancelTransaction($transaction);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(CancelTransactionResponse::class, $requestResult);
     }
 }

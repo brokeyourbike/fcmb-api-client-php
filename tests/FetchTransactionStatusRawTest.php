@@ -10,13 +10,14 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use BrokeYourBike\FirstCityMonumentBank\Models\FetchTransactionStatusResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 use BrokeYourBike\FirstCityMonumentBank\Client;
 
 /**
  * @author Ivan Stasiuk <brokeyourbike@gmail.com>
  */
-class GetTransactionStatusRawTest extends TestCase
+class FetchTransactionStatusRawTest extends TestCase
 {
     private string $authToken = 'super-secure-token';
     private string $reference = '12345';
@@ -32,7 +33,11 @@ class GetTransactionStatusRawTest extends TestCase
         $mockedResponse->method('getBody')
             ->willReturn('{
                 "code": "INI",
-                "message": "Transaction initiated"
+                "message": "Transaction initiated",
+                "transaction": {
+                    "reference": "38841c9f-d422-4ddd-a522-c5b1867d6da6",
+                    "linkingreference": "F00229978599"
+                }
             }');
 
         /** @var \Mockery\MockInterface $mockedClient */
@@ -63,8 +68,8 @@ class GetTransactionStatusRawTest extends TestCase
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
 
-        $requestResult = $api->getTransactionStatusRaw($this->reference);
+        $requestResult = $api->fetchTransactionStatusRaw($this->reference);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(FetchTransactionStatusResponse::class, $requestResult);
     }
 }

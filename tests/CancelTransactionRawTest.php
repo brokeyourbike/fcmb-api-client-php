@@ -10,6 +10,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Tests;
 
 use Psr\SimpleCache\CacheInterface;
 use Psr\Http\Message\ResponseInterface;
+use BrokeYourBike\FirstCityMonumentBank\Models\CancelTransactionResponse;
 use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 use BrokeYourBike\FirstCityMonumentBank\Client;
 
@@ -73,6 +74,6 @@ class CancelTransactionRawTest extends TestCase
 
         $requestResult = $api->cancelTransactionRaw($this->reference);
 
-        $this->assertInstanceOf(ResponseInterface::class, $requestResult);
+        $this->assertInstanceOf(CancelTransactionResponse::class, $requestResult);
     }
 }
