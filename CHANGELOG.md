@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.2.0...v0.2.1) (2021-12-21)
+
+
+### Bug Fixes
+
+* get config and cache used ([290bfd1](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/290bfd1708b3af8a319014fd9010b5c21fa3a529))
+
 ## [0.2.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.1.2...v0.2.0) (2021-12-19)
 
 
