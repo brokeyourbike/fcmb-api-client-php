@@ -48,6 +48,16 @@ class Client implements HttpClientInterface
         $this->cache = $cache;
     }
 
+    public function getConfig(): ConfigInterface
+    {
+        return $this->config;
+    }
+
+    public function getCache(): CacheInterface
+    {
+        return $this->cache;
+    }
+
     public function authTokenCacheKey(): string
     {
         return get_class($this) . ':authToken:';
