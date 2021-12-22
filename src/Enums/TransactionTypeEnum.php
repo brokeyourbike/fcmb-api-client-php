@@ -10,20 +10,16 @@ namespace BrokeYourBike\FirstCityMonumentBank\Enums;
 
 /**
  * @author Ivan Stasiuk <brokeyourbike@gmail.com>
- *
- * @method static TransactionTypeEnum BANK()
- * @method static TransactionTypeEnum CASH()
- * @psalm-immutable
  */
-final class TransactionTypeEnum extends \MyCLabs\Enum\Enum
+enum TransactionTypeEnum: string
 {
     /**
      * Bank transfer.
      */
-    private const BANK = 'acct_payout';
+    case BANK = 'acct_payout';
 
     /**
      * Cash collection.
      */
-    private const CASH = 'payout_pickup';
+    case CASH = 'payout_pickup';
 }

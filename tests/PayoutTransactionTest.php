@@ -100,7 +100,7 @@ class PayoutTransactionTest extends TestCase
         $transaction->method('getSender')->willReturn($this->sender);
         $transaction->method('getRecipient')->willReturn($this->recipient);
         $transaction->method('getReference')->willReturn($this->reference);
-        $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK());
+        $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK);
         $transaction->method('getSecretQuestion')->willReturn('what is love?');
         $transaction->method('getSecretAnswer')->willReturn('love is code');
 
@@ -140,7 +140,7 @@ class PayoutTransactionTest extends TestCase
                         'reference' => $this->reference,
                     ],
                     'source' => [
-                        'operation' => (string) TransactionTypeEnum::BANK(),
+                        'operation' => TransactionTypeEnum::BANK->value,
                         'sender' => [
                             'name' => $transaction->getSender()?->getName(),
                             'address' => $transaction->getSender()?->getAddress(),
@@ -197,7 +197,7 @@ class PayoutTransactionTest extends TestCase
         $transaction->method('getSender')->willReturn($this->sender);
         $transaction->method('getRecipient')->willReturn($this->recipient);
         $transaction->method('getReference')->willReturn($this->reference);
-        $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK());
+        $transaction->method('getTransactionType')->willReturn(TransactionTypeEnum::BANK);
 
         /** @var SourceTransactionFixture $transaction */
         $this->assertInstanceOf(SourceTransactionFixture::class, $transaction);
@@ -235,7 +235,7 @@ class PayoutTransactionTest extends TestCase
                         'reference' => $this->reference,
                     ],
                     'source' => [
-                        'operation' => (string) TransactionTypeEnum::BANK(),
+                        'operation' => TransactionTypeEnum::BANK->value,
                         'sender' => [
                             'name' => $transaction->getSender()?->getName(),
                             'address' => $transaction->getSender()?->getAddress(),

@@ -10,11 +10,8 @@ namespace BrokeYourBike\FirstCityMonumentBank\Enums;
 
 /**
  * @author Ivan Stasiuk <brokeyourbike@gmail.com>
- *
- * @method static IdentificationTypeEnum PASSPORT()
- * @psalm-immutable
  */
-final class IdentificationTypeEnum extends \MyCLabs\Enum\Enum
+enum IdentificationTypeEnum: string
 {
-    private const PASSPORT = 'PASSPORT';
+    case PASSPORT = 'PASSPORT';
 }

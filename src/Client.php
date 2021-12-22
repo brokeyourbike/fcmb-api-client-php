@@ -101,7 +101,7 @@ class Client implements HttpClientInterface
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), 'auth');
 
         $response = $this->httpClient->request(
-            (string) HttpMethodEnum::POST(),
+            HttpMethodEnum::POST->value,
             $uri,
             $options
         );
@@ -115,7 +115,7 @@ class Client implements HttpClientInterface
             $this->setSourceModel($recipient);
         }
 
-        $response = $this->performRequest(HttpMethodEnum::POST(), 'customer/validate', [
+        $response = $this->performRequest(HttpMethodEnum::POST, 'customer/validate', [
             'publickey' => $this->config->getClientId(),
             'source' => [
                 'operation' => 'account_enquiry',
@@ -146,7 +146,7 @@ class Client implements HttpClientInterface
 
     public function fetchTransactionStatusRaw(string $reference): FetchTransactionStatusResponse
     {
-        $response = $this->performRequest(HttpMethodEnum::GET(), 'payout/status', [
+        $response = $this->performRequest(HttpMethodEnum::GET, 'payout/status', [
             'reference' => $reference,
         ]);
 
@@ -164,7 +164,7 @@ class Client implements HttpClientInterface
 
     public function cancelTransactionRaw(string $reference): CancelTransactionResponse
     {
-        $response = $this->performRequest(HttpMethodEnum::POST(), 'payout/cancel', [
+        $response = $this->performRequest(HttpMethodEnum::POST, 'payout/cancel', [
             'publickey' => $this->config->getClientId(),
             'transaction' => [
                 'reference' => $reference,
@@ -205,13 +205,13 @@ class Client implements HttpClientInterface
                 'reference' => $transaction->getReference(),
             ],
             'source' => [
-                'operation' => (string) $transaction->getTransactionType(),
+                'operation' => $transaction->getTransactionType()->value,
                 'sender' => [
                     'name' => $sender->getName(),
                     'address' => $sender->getAddress(),
                     'mobile' => $sender->getPhoneNumber(),
                     'country' => $sender->getCountryCode(),
-                    'idtype' => (string) $sender->getIdentificationType(),
+                    'idtype' => $sender->getIdentificationType()?->value,
                     'idnumber' => $sender->getIdentificationNumber(),
                     'idexpiry' => $senderIdExpiry,
                 ],
@@ -220,7 +220,7 @@ class Client implements HttpClientInterface
                     'address' => $recipient->getAddress(),
                     'mobile' => $recipient->getPhoneNumber(),
                     'country' => $recipient->getCountryCode(),
-                    'idtype' => (string) $recipient->getIdentificationType(),
+                    'idtype' => $recipient->getIdentificationType()?->value,
                     'idnumber' => $recipient->getIdentificationNumber(),
                     'idexpiry' => $recipientIdExpiry,
                     'accountnumber' => $recipient->getAccountNumber(),
@@ -241,7 +241,7 @@ class Client implements HttpClientInterface
             $data['order']['secretanswer'] = $transaction->getSecretAnswer();
         }
 
-        $response = $this->performRequest(HttpMethodEnum::POST(), 'account/payout', $data);
+        $response = $this->performRequest(HttpMethodEnum::POST, 'account/payout', $data);
         return new PayoutTransactionResponse($response);
     }
 
@@ -261,17 +261,18 @@ class Client implements HttpClientInterface
             ],
         ];
 
-        if (HttpMethodEnum::GET()->equals($method)) {
-            $options[\GuzzleHttp\RequestOptions::QUERY] = $data;
-        } elseif (HttpMethodEnum::POST()->equals($method)) {
-            $options[\GuzzleHttp\RequestOptions::JSON] = $data;
-        }
+        $option = match ($method) {
+            HttpMethodEnum::GET => \GuzzleHttp\RequestOptions::QUERY,
+            default => \GuzzleHttp\RequestOptions::JSON,
+        };
+
+        $options[$option] = $data;
 
         if ($this->getSourceModel()) {
             $options[\BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL] = $this->getSourceModel();
         }
 
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), $uri);
-        return $this->httpClient->request((string) $method, $uri, $options);
+        return $this->httpClient->request($method->value, $uri, $options);
     }
 }

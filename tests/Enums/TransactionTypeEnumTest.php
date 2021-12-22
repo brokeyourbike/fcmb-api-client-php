@@ -17,21 +17,9 @@ use BrokeYourBike\FirstCityMonumentBank\Enums\TransactionTypeEnum;
 class TransactionTypeEnumTest extends TestCase
 {
     /** @test */
-    public function it_extends_myclabs_enum(): void
+    public function its_baked_enum(): void
     {
-        $parent = get_parent_class(TransactionTypeEnum::class);
-
-        $this->assertSame(\MyCLabs\Enum\Enum::class, $parent);
-    }
-
-    /** @test */
-    public function it_has_not_duplicate_values()
-    {
-        $allValuesRaw = TransactionTypeEnum::toArray();
-        $this->assertNotEmpty($allValuesRaw);
-
-        $uniqueValuesraw = array_unique($allValuesRaw, SORT_STRING);
-
-        $this->assertEquals($allValuesRaw, $uniqueValuesraw);
+        $e = TransactionTypeEnum::BANK;
+        $this->assertInstanceOf(\BackedEnum::class, $e);
     }
 }
