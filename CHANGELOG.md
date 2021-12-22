@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.2.1...v0.3.0) (2021-12-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* use native enums
+
+### Features
+
+* use native enums ([e88b218](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/e88b2188965440228d7b921aa481a499960f5097))
+
 ### [0.2.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.2.0...v0.2.1) (2021-12-21)
 
 
