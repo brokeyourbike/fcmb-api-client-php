@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.0...v0.3.1) (2022-01-02)
+
+
+### Bug Fixes
+
+* remove baseline ([0c28563](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/0c28563c7e7f0acc860d966c58f57742ba86a316))
+
 ## [0.3.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.2.1...v0.3.0) (2021-12-22)
 
 
