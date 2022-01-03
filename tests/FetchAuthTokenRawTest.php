@@ -44,7 +44,6 @@ class FetchAuthTokenRawTest extends TestCase
             'POST',
             'https://api.example/auth',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                 ],

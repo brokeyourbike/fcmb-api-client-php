@@ -8,7 +8,6 @@
 
 namespace BrokeYourBike\FirstCityMonumentBank\Models;
 
-use Spatie\DataTransferObject\Attributes\MapFrom;
 use BrokeYourBike\DataTransferObject\JsonResponse;
 
 /**

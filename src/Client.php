@@ -87,7 +87,6 @@ class Client implements HttpClientInterface
     public function fetchAuthTokenRaw(): FetchAuthTokenResponse
     {
         $options = [
-            \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
             ],
@@ -254,7 +253,6 @@ class Client implements HttpClientInterface
     private function performRequest(HttpMethodEnum $method, string $uri, array $data): ResponseInterface
     {
         $options = [
-            \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
             \GuzzleHttp\RequestOptions::HEADERS => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . (string) $this->getAuthToken(),

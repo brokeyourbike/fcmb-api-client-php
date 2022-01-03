@@ -54,7 +54,6 @@ class CancelTransactionTest extends TestCase
             'POST',
             'https://api.example/payout/cancel',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",
@@ -114,7 +113,6 @@ class CancelTransactionTest extends TestCase
             'POST',
             'https://api.example/payout/cancel',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",

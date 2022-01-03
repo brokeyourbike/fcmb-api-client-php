@@ -50,7 +50,6 @@ class ValidateRecipientTest extends TestCase
             'POST',
             'https://api.example/customer/validate',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",
@@ -117,7 +116,6 @@ class ValidateRecipientTest extends TestCase
             'POST',
             'https://api.example/customer/validate',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",

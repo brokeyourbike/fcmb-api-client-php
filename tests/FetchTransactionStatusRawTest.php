@@ -46,7 +46,6 @@ class FetchTransactionStatusRawTest extends TestCase
             'GET',
             'https://api.example/payout/status',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",

@@ -129,7 +129,6 @@ class PayoutTransactionTest extends TestCase
             'POST',
             'https://api.example/account/payout',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",
@@ -224,7 +223,6 @@ class PayoutTransactionTest extends TestCase
             'POST',
             'https://api.example/account/payout',
             [
-                \GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
                 \GuzzleHttp\RequestOptions::HEADERS => [
                     'Accept' => 'application/json',
                     'Authorization' => "Bearer {$this->authToken}",
