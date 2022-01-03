@@ -21,6 +21,10 @@ composer require brokeyourbike/fcmb-api-client
 ```php
 use BrokeYourBike\FirstCityMonumentBank\Client;
 
+assert($config instanceof ApiConfigInterface);
+assert($httpClient instanceof \GuzzleHttp\ClientInterface);
+assert($psrCache instanceof \Psr\SimpleCache\CacheInterface);
+
 $apiClient = new Client($config, $httpClient, $psrCache);
 $apiClient->fetchAuthTokenRaw();
 ```
