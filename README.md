@@ -20,8 +20,9 @@ composer require brokeyourbike/fcmb-api-client
 
 ```php
 use BrokeYourBike\FirstCityMonumentBank\Client;
+use BrokeYourBike\FirstCityMonumentBank\Interfaces\ConfigInterface;
 
-assert($config instanceof ApiConfigInterface);
+assert($config instanceof ConfigInterface);
 assert($httpClient instanceof \GuzzleHttp\ClientInterface);
 assert($psrCache instanceof \Psr\SimpleCache\CacheInterface);
 

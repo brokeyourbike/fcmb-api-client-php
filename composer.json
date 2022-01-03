@@ -7,7 +7,8 @@
         "api",
         "api-client",
         "fcmb",
-        "first-city-monument-bank"
+        "first-city-monument-bank",
+        "brokeyourbike"
     ],
     "autoload": {
         "psr-4": {
