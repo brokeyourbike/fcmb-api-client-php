@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.3.2](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.1...v0.3.2) (2022-01-03)
+
+
+### Bug Fixes
+
+* remove unused option ([a7dc813](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/a7dc813bfe77f55976b189f076ca1031f8aafe41))
+
+
+### Miscellaneous Chores
+
+* update author email ([07ca1a4](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/07ca1a48e450756690f64f623419b1e4c01b808d))
+* update example ([ea2297d](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/ea2297dc69e9ccde7fbe478e0089f91480953f34))
+* update example ([60a53ac](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/60a53ac0bd0df0aca35452ac346528a72d8870e3))
+
 ### [0.3.1](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.0...v0.3.1) (2022-01-02)
 
 
