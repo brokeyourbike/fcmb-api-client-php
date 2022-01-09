@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.4](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.3...v0.3.4) (2022-01-09)
+
+
+### Bug Fixes
+
+* `cutomername` can be null ([1d3001b](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/1d3001b9f5ce0d106dfd9d5478e1d4a156a525a2))
+
 ### [0.3.3](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.2...v0.3.3) (2022-01-03)
 
 
