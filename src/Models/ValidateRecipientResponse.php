@@ -20,5 +20,5 @@ class ValidateRecipientResponse extends JsonResponse
     public string $message;
 
     #[MapFrom('cutomername')]
-    public string $cutomerName;
+    public ?string $cutomerName;
 }
