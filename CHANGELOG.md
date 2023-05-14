@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.3.5](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.4...v0.3.5) (2023-05-14)
+
+
+### Miscellaneous Chores
+
+* allow bin ([81b1905](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/81b1905517b07182fd29d4801321fcc29c844437))
+* badges ([44bd1f0](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/44bd1f089103f4e25bb1d2174da757398ad2db4f))
+
 ### [0.3.4](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.3...v0.3.4) (2022-01-09)
 
 
