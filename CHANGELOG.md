@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.6](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.5...v0.3.6) (2023-05-20)
+
+
+### Miscellaneous Chores
+
+* button ([dfa42d5](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/dfa42d544e6860d3ba2185a2ba46ca3c6801553f))
+
 ### [0.3.5](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.4...v0.3.5) (2023-05-14)
 
 
