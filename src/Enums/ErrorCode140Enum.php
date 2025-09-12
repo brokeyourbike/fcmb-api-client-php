@@ -10,6 +10,7 @@ namespace BrokeYourBike\FirstCityMonumentBank\Enums;
 
 /**
  * @author Ivan Stasiuk <ivan@stasi.uk>
+ * Based on: SB_IMTO Payout API 1.40.
  */
 enum ErrorCodeEnum: string
 {
