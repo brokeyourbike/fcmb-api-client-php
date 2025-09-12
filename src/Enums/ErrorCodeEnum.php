@@ -75,14 +75,19 @@ enum ErrorCodeEnum: string
     case DESTINATION_ERROR = 'S11';
 
     /**
-     * Transaction failed.
+     * Transaction is pending.
      */
-    case TRANSACTION_ERROR = 'S12';
+    case TRANSACTION_PENDING = 'S12';
 
     /**
      * Name enquiry error.
      */
     case NAME_ENQUIRY_ERROR = 'S12-01';
+
+    /**
+     * Transaction is pending.
+     */
+    case TRANSACTION_PENDING_2 = 'S12-S0';
 
     /**
      * Invalid payout type.
@@ -103,6 +108,36 @@ enum ErrorCodeEnum: string
      * Transaction is pending.
      */
     case PENDING = 'S20';
+
+    /**
+     * Sorry, name validation failed. Please try again.
+     */
+    case NAME_VALIDATION_FAILED = 'S26';
+
+    /**
+     * Account Currency(NGN) mismatch to transaction Currency(USD).
+     */
+    case CURRENCY_MISMATCH = '114';
+
+    /**
+     * CBA Inoperative.
+     */
+    case CBA_INOPERATIVE = '907';
+
+    /**
+     * System Malfunction.
+     */
+    case SYSTEM_MALFUNCTION = '909';
+
+    /**
+     * Format error.
+     */
+    case FORMAT_ERROR = '904';
+
+    /**
+     * Transaction Limit Exceeded.
+     */
+    case TRANSACTION_LIMIT_EXCEEDED = '180';
 
     /**
      * Transaction initiated.
