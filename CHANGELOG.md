@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.3.6](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.5...v0.3.6) (2025-09-12)
+
+
+### Bug Fixes
+
+* 140 ([ad8a8bc](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/ad8a8bc8c7f187605b67dcf08d411998f1153c15))
+* pending ([2244785](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/2244785acf6b227c774de8ee77f8c360091d26ab))
+
+
+### Miscellaneous Chores
+
+* based on ([a620f04](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/a620f0448ccd3bba589901bed6b11f2a13fe3549))
+* button ([dfa42d5](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/dfa42d544e6860d3ba2185a2ba46ca3c6801553f))
+
 ### [0.3.5](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.4...v0.3.5) (2023-05-14)
 
 
