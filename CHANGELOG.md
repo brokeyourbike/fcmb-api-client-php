@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.7](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.6...v0.3.7) (2025-09-12)
+
+
+### Bug Fixes
+
+* ErrorCode140Enum ([0474df2](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/0474df269edf151172decb507e3674fb55a4b51c))
+
 ### [0.3.6](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.5...v0.3.6) (2025-09-12)
 
 
