@@ -19,12 +19,6 @@ enum ErrorCodeEnum: string
     case SUCCESS = '00';
 
     /**
-     * Transaction successful.
-     * Same as `SUCCESS`, but different code.
-     */
-    case DOUBLE_SUCCESS = '000';
-
-    /**
      * Invalid credentials.
      */
     case CREDENTIALS_ERROR = 'S1';
@@ -75,19 +69,14 @@ enum ErrorCodeEnum: string
     case DESTINATION_ERROR = 'S11';
 
     /**
-     * Transaction failed.
+     * Transaction is pending.
      */
-    case TRANSACTION_ERROR = 'S12';
+    case TRANSACTION_PENDING = 'S12';
 
     /**
-     * Name enquiry error.
+     * Transaction is pending.
      */
-    case NAME_ENQUIRY_ERROR = 'S12-01';
-
-    /**
-     * Invalid payout type.
-     */
-    case PAYOUT_TYPE_ERROR = 'S13';
+    case TRANSACTION_PENDING_2 = 'S12-S0';
 
     /**
      * Transaction reference must be unique.
@@ -95,32 +84,37 @@ enum ErrorCodeEnum: string
     case REFERENCE_ERROR = 'S14';
 
     /**
+     * Sorry, name validation failed. Please try again.
+     */
+    case NAME_VALIDATION_FAILED = 'S26';
+
+    /**
      * No data found.
      */
     case NOT_FOUND = 'S404';
 
     /**
-     * Transaction is pending.
+     * Account Currency(NGN) mismatch to transaction Currency(USD).
      */
-    case PENDING = 'S20';
+    case CURRENCY_MISMATCH = '114';
+
+        /**
+     * Transaction Limit Exceeded.
+     */
+    case TRANSACTION_LIMIT_EXCEEDED = '180';
 
     /**
-     * Transaction initiated.
+     * Format error.
      */
-    case INITIATED = 'INI';
+    case FORMAT_ERROR = '904';
 
     /**
-     * Transaction is in progress.
+     * CBA Inoperative.
      */
-    case IN_PROGRESS = 'INP';
+    case CBA_INOPERATIVE = '907';
 
     /**
-     * Transaction has been locked for payout.
+     * System Malfunction.
      */
-    case LOCKED = 'LCK';
-
-    /**
-     * Transaction has been canceled.
-     */
-    case CANCELED = 'CANCEL';
+    case SYSTEM_MALFUNCTION = '909';
 }
