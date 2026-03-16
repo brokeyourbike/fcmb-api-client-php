@@ -97,6 +97,10 @@ class Client implements HttpClientInterface
             ],
         ];
 
+        if ($this->getSourceModel() != null){
+            $options[\BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL] = $this->getSourceModel();
+        }
+
         $uri = (string) $this->resolveUriFor($this->config->getUrl(), 'auth');
 
         $response = $this->httpClient->request(
@@ -110,10 +114,6 @@ class Client implements HttpClientInterface
 
     public function validateRecipient(RecipientInterface $recipient): ValidateRecipientResponse
     {
-        if ($recipient instanceof SourceModelInterface) {
-            $this->setSourceModel($recipient);
-        }
-
         $response = $this->performRequest(HttpMethodEnum::POST, 'customer/validate', [
             'publickey' => $this->config->getClientId(),
             'source' => [
@@ -136,10 +136,6 @@ class Client implements HttpClientInterface
 
     public function fetchTransactionStatus(TransactionInterface $transaction): FetchTransactionStatusResponse
     {
-        if ($transaction instanceof SourceModelInterface) {
-            $this->setSourceModel($transaction);
-        }
-
         return $this->fetchTransactionStatusRaw($transaction->getReference());
     }
 
@@ -154,10 +150,6 @@ class Client implements HttpClientInterface
 
     public function cancelTransaction(TransactionInterface $transaction): CancelTransactionResponse
     {
-        if ($transaction instanceof SourceModelInterface) {
-            $this->setSourceModel($transaction);
-        }
-
         return $this->cancelTransactionRaw($transaction->getReference());
     }
 
@@ -184,10 +176,6 @@ class Client implements HttpClientInterface
 
         if (!$recipient instanceof RecipientInterface) {
             throw PrepareRequestException::noRecipient($transaction);
-        }
-
-        if ($transaction instanceof SourceModelInterface) {
-            $this->setSourceModel($transaction);
         }
 
         $senderIdExpiry = $sender->getIdentificationExpiry() !== null
@@ -266,7 +254,7 @@ class Client implements HttpClientInterface
 
         $options[$option] = $data;
 
-        if ($this->getSourceModel()) {
+        if ($this->getSourceModel() != null){
             $options[\BrokeYourBike\HasSourceModel\Enums\RequestOptions::SOURCE_MODEL] = $this->getSourceModel();
         }
 
