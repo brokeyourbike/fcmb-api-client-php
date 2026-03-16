@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.4.0...v0.5.0) (2026-03-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* source
+
+### Features
+
+* source ([d1e0b9d](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/d1e0b9dc6eb745df691c5d76be98f6ecc166663a))
+
 ## [0.4.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.7...v0.4.0) (2026-03-16)
 
 
