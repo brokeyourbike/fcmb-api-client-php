@@ -150,7 +150,7 @@ class ValidateRecipientTest extends TestCase
          * @var CacheInterface $mockedCache
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
-
+        $api->setSourceModel($recipient);
         $requestResult = $api->validateRecipient($recipient);
 
         $this->assertInstanceOf(ValidateRecipientResponse::class, $requestResult);

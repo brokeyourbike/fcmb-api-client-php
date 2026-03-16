@@ -137,7 +137,7 @@ class CancelTransactionTest extends TestCase
          * @var CacheInterface $mockedCache
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
-
+        $api->setSourceModel($transaction);
         $requestResult = $api->cancelTransaction($transaction);
 
         $this->assertInstanceOf(CancelTransactionResponse::class, $requestResult);

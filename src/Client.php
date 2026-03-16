@@ -15,7 +15,6 @@ use BrokeYourBike\ResolveUri\ResolveUriTrait;
 use BrokeYourBike\HttpEnums\HttpMethodEnum;
 use BrokeYourBike\HttpClient\HttpClientTrait;
 use BrokeYourBike\HttpClient\HttpClientInterface;
-use BrokeYourBike\HasSourceModel\SourceModelInterface;
 use BrokeYourBike\HasSourceModel\HasSourceModelTrait;
 use BrokeYourBike\FirstCityMonumentBank\Models\ValidateRecipientResponse;
 use BrokeYourBike\FirstCityMonumentBank\Models\PayoutTransactionResponse;

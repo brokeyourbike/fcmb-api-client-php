@@ -277,7 +277,7 @@ class PayoutTransactionTest extends TestCase
          * @var CacheInterface $mockedCache
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
-
+        $api->setSourceModel($transaction);
         $requestResult = $api->payoutTransaction($transaction);
 
         $this->assertInstanceOf(PayoutTransactionResponse::class, $requestResult);

@@ -128,7 +128,7 @@ class FetchTransactionStatusTest extends TestCase
          * @var CacheInterface $mockedCache
          * */
         $api = new Client($mockedConfig, $mockedClient, $mockedCache);
-
+        $api->setSourceModel($transaction);
         $requestResult = $api->fetchTransactionStatus($transaction);
 
         $this->assertInstanceOf(FetchTransactionStatusResponse::class, $requestResult);
