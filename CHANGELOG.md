@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.7...v0.4.0) (2026-03-16)
+
+
+### Features
+
+* braking ([cfb788c](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/cfb788c530bf043aa39889f5e99d13285de9252d))
+
+
+### Bug Fixes
+
+* 3 ([3d27a1f](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/3d27a1fd8bcea7ce6d2a54dd863ca795033af73a))
+
+
+### Miscellaneous Chores
+
+* nadge ([e40c750](https://www.github.com/brokeyourbike/fcmb-api-client-php/commit/e40c7500ff420a0b21cc6c61473e2a782aa712d1))
+
 ### [0.3.7](https://www.github.com/brokeyourbike/fcmb-api-client-php/compare/v0.3.6...v0.3.7) (2025-09-12)
 
 
